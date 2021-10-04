@@ -1,1 +1,3 @@
 # OnlineKino
+
+"build": "webpack",
