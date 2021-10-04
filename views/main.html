@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Online Kino</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link rel="icon" href="img/icon.png" type="image/png" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+        <link rel="stylesheet" href="/static/css/main.css" />
+        <link rel="stylesheet" href="" />
+        <link rel="stylesheet" href="" />
+    </head>
+
+    <body>
+        <header class="header">
+            <!-- Навигация -->
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-1 navbar-custom">
+                <div class="container">
+                    <a class="navbar-brand logo" href="#">MaX print</a>
+                    <a class="navbar-brand logo" href="#">Одежда</a>
+                    <a class="navbar-brand logo" href="#">Принтинг</a>
+                    <a class="navbar-brand logo" href="#">Сувенирная продукция</a>
+                    <a class="navbar-brand logo" href="#">О компании</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li>
+                                <button class="btn btn-outline-light float-right ml-5 my-2" data-toggle="modal" data-target="#autoriz">
+                                    Вход
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="container mt-4">
+            <div class="row">
+                <!-- Фильтры -->
+                <div class="col-md-auto filters mt-4">
+                    <h6 class="text-left mt-4">ЖАНРЫ</h6>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="f1" />
+                        <label class="form-check-label" for="f1">Боевик</label>
+                    </div>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="f2" />
+                        <label class="form-check-label" for="f2">Комедия</label>
+                    </div>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="f3" />
+                        <label class="form-check-label" for="f3">Ужасы</label>
+                    </div>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="f4" />
+                        <label class="form-check-label" for="f4">Драма</label>
+                    </div>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="f5" />
+                        <label class="form-check-label" for="f5">Детское</label>
+                    </div>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="f6" />
+                        <label class="form-check-label" for="f6">Документальное</label>
+                    </div>
+
+                    <h6 class="text-left mt-4">ГОД</h6>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="y1" onchange="checkBoxFilters()" />
+                        <label class="form-check-label" for="y1">2021</label>
+                    </div>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="y2" onchange="checkBoxFilters()" />
+                        <label class="form-check-label" for="y2">2020</label>
+                    </div>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="y3" onchange="checkBoxFilters()" />
+                        <label class="form-check-label" for="y3">2019</label>
+                    </div>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="y4" onchange="checkBoxFilters()" />
+                        <label class="form-check-label" for="y4">2018</label>
+                    </div>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="y5" onchange="checkBoxFilters()" />
+                        <label class="form-check-label" for="y5">2017</label>
+                    </div>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="y6" onchange="checkBoxFilters()" />
+                        <label class="form-check-label" for="y6">2016</label>
+                    </div>
+
+                    <h6 class="text-left mt-4">РЕЙТИНГ</h6>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="r1" />
+                        <label class="form-check-label" for="r1">9+</label>
+                    </div>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="r2" />
+                        <label class="form-check-label" for="r2">8+</label>
+                    </div>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="r3" />
+                        <label class="form-check-label" for="r3">7+</label>
+                    </div>
+
+                    <div class="text-center mt-5 mr-2">
+                        <p class="ad py-5 mb-5">Реклама</p>
+                        <p class="ad py-5 mb-5">Реклама</p>
+                        <p class="ad py-5 mb-5">Реклама</p>
+                    </div>
+                </div>
+
+                <div class="col-md films mx-4">
+                    <!-- Сортировка -->
+                    <div class="sort text-right mx-3">
+                        <a>
+                            <input type="button" value="BEST" />
+                            <img class="ml-1 mb-1" src="" alt="" />
+                        </a>
+                        <input type="button" value="POPULAR" />
+                        <hr class="mt-0" width="100%" size="1" color="#6C6C6C" />
+                    </div>
+                    <!-- Фильмы -->
+                    <div class="row movies" id="films" name="1">
+                        
+                    </div>
+                    <!-- Тулбар -->
+                    <div class="row movies row-cols-3">
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <button class="page-link prev" disabled>Предыдущая</button>
+                            </li>
+                            <li class="page-item active">
+                                <button class="page-link number">1</button>
+                            </li>
+                            <li class="page-item">
+                                <button class="page-link number">2</button>
+                            </li>
+                            <li class="page-item">
+                                <button class="page-link number">3</button>
+                            </li>
+                            <li class="page-item">
+                                <button class="page-link next">Следующая</button>
+                            </li>
+                        </ul>
+                        <!--<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group mb-4" role="group" aria-label="toolbar">
+                                <button id="btn-1" class="btn btn-tool mr-2">
+                                    Назад
+                                </button>
+                                <button id="btn-2" class="btn btn-tool ml-2">
+                                    Вперед
+                                </button>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer pt-4">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md">
+                        <!-- Соц.сети -->
+                        <div class="btn-toolbar mx-auto d-block mt-2 mb-3">
+                            <a class="mx-1 mx-1" href=""><img src="" alt="instagram"/></a>
+                            <a class="mx-1" href=""><img src="" alt="tiktok"/></a>
+                            <a class="mx-1" href=""><img src="" alt="telegram"/></a>
+                        </div>
+                        <!-- Доп.страницы -->
+                        <ul class="list-unstyled ftr-link">
+                            <li><a href="faq.html">Помощь</a></li>
+                            <li><a href="aboutCompany.html">О компании</a></li>
+                            <li>
+                                <a href="https://github.com/ialakey/privacy_policy">Конфиденциальность</a>
+                            </li>
+                            <li class="mt-2">© 2021 MemoDogMovie</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script src=""></script>
+        <script src="/Vuejs/index_bundle.js"></script>
+    </body>
+</html>

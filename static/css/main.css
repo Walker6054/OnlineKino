@@ -1,0 +1,239 @@
+.prev {
+    margin-right: 1vw;
+}
+.next {
+    margin-left: 1vw;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+.navbar-custom {
+    background-color: #06163e;
+}
+
+.navbar-brand {
+    font-size: 20pt;
+    font-weight: 700;
+}
+
+.navbar-brand.logo:hover {
+    color: #7e7b7b;
+}
+
+button {
+    display: block;
+}
+
+.slider {
+    padding: 1%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)), url(../img/Закат.jpg);
+}
+
+.sld {
+    border-radius: 1px;
+}
+
+a,
+h6,
+h5,
+h4 {
+    color: #272727;
+}
+
+p {
+    font-weight: 300;
+    color: #6c6c6c;
+}
+
+label {
+    color: #6c6c6c;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #7e7b7b;
+}
+
+.sort a,
+button {
+    font-weight: 500;
+    background: none;
+}
+
+.sort img {
+    height: 1rem;
+    width: 1rem;
+    transition-duration: 0.3s;
+}
+
+.sort:hover img {
+    height: 1rem;
+    width: 1rem;
+    transform: rotate(180deg);
+}
+
+.movies {
+    justify-content: space-evenly;
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+    display: flex;
+    flex-wrap: wrap;
+}
+.card {
+    box-shadow: 0 0 12px 0 rgba(100, 100, 100, 0.5);
+}
+.card.film {
+    transition-duration: 0.8s;
+}
+.card.film:hover {
+    box-shadow: 0 0 14px 0 rgba(44, 42, 42, 0.65);
+    transform: scale(1.02);
+}
+
+.btn-film {
+    border-color: #06163e;
+    color: #06163e;
+    transition-duration: 0.4s;
+}
+
+.btn-film:hover {
+    border-color: #fff;
+    color: #fff;
+    background-color: #06163e;
+}
+
+.btn-tool {
+    background-color: #fff;
+    font-weight: 500;
+    color: #061f5e;
+}
+
+.btn-tool:hover {
+    color: #fff;
+    background-color: #061f5e;
+}
+
+.footer {
+    background-color: #06163e;
+}
+
+.ftr-link {
+    color: #666666;
+}
+
+.ftr-link a {
+    color: rgb(153, 153, 153);
+}
+
+.ftr-link a:hover {
+    color: rgb(211, 211, 211);
+}
+
+.btn-toolbar img {
+    transition-duration: 0.5s;
+}
+
+.btn-toolbar img:hover {
+    transform: rotate(360deg);
+}
+
+.ad {
+    background-color: #c4c4c4;
+}
+
+.description-film p {
+    font-size: 18px;
+    font-weight: 500;
+    color: #272727;
+}
+
+.description-film a {
+    text-decoration: underline;
+}
+
+.heart {
+    height: 1.6rem;
+    width: 1.6rem;
+}
+
+.col-md.value-desc {
+    font-weight: 400;
+    font-size: 16px;
+    color: #2e2e2e;
+}
+
+.value-desc {
+    font-weight: 400;
+    font-size: 16px;
+    color: #2e2e2e;
+    text-indent: 1.5em; /* Отступ */
+    text-align: justify; /* Выравнивание по ширине */
+}
+
+.player-film-connect {
+    background-color: #e7e7e7;
+}
+
+.user {
+    font-size: 14px;
+    font-weight: 400;
+    color: #272727;
+}
+
+.title-user {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.cmt {
+    border: 1px solid;
+    border-radius: 16px;
+}
+
+.form-control.cmt {
+    /* not work */
+    overflow: auto;
+    resize: none;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.user button {
+    border-radius: 9px;
+}
+
+.img-title {
+    background-image: url(../img/faq.png);
+    background-size: 100%;
+    padding-bottom: 44.7%;
+    background-repeat: no-repeat;
+}
+
+.img-company img {
+    width: 70%;
+    height: 70%;
+}
+
+.img-title-company {
+    background-image: url(../img/title.png);
+    background-size: 100%;
+    padding-bottom: 51.6%;
+    background-repeat: no-repeat;
+}
+
+.aboutCompany h6 {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.performance img {
+    width: 7%;
+}
+
+.performance p {
+    font-size: 18px;
+    font-weight: 500;
+}
