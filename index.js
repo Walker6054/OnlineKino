@@ -6,7 +6,7 @@ const app = express();
 const userRouter = require("./routes/usersRouter.js");
 const homeRouter = require("./routes/homeRouter.js");
  
-app.use("/users", userRouter);;
+app.use("/users", userRouter);
 app.use("/", homeRouter);
  
 
@@ -21,20 +21,7 @@ app.use((err, req, res, next) => {
 app.listen(3000);
 
 
-//Подключение к БД
-const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "onlinekinonew",
-    password: "Walker.90"
-});
-connection.connect(function(err){
-    if (err) {
-        return console.error("Ошибка: " + err.message);
-    } else {
-        console.log("Подключение к серверу MySQL успешно установлено");
-    }
-});
+
 
 //использование директории на сервере
 app.use('/static', express.static(path.join(__dirname, '/static')));

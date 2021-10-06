@@ -27,12 +27,16 @@ maxPageReq.onload = () => {
 function updatePage() {
     let target = event.target;
     if (target.innerHTML == 2) {
-        console.log(event);
         target.parentElement.setAttribute("class","page-item active");
         target.parentElement.previousElementSibling.setAttribute("class", "page-item");
-        //pageNextEl.previousElementSibling
         pagePrevEl.parentElement.setAttribute("class","page-item");
     }
+    if (target.innerHTML == 1) {
+        target.parentElement.setAttribute("class", "page-item active");
+        target.parentElement.nextElementSibling.setAttribute("class", "page-item");
+        pagePrevEl.parentElement.setAttribute("class", "page-item disabled");
+    }
+    
     indexPage = target.innerHTML;
     getFilms(indexPage);
 }
@@ -40,6 +44,8 @@ function updatePage() {
 
 
 function getFilms(indexPage) {
+    //document.location = document.URL + "page=?" + indexPage;
+    
     let url = "/page=?" + indexPage; 
     let data = new Array();
     let filmListReq = new XMLHttpRequest();
