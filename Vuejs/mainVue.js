@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import films from './apps/mainApp.vue';
+import genres from './apps/mainGenresApp.vue';
 
 var indexPageEls = document.getElementsByClassName("number");
-console.log(indexPageEls);
+//console.log(indexPageEls);
 var pagePrevEl = document.getElementsByClassName("prev")[0];
 var pageNextEl = document.getElementsByClassName("next")[0];
 
@@ -26,9 +27,16 @@ maxPageReq.onload = () => {
 
 function updatePage() {
     let target = event.target;
+    indexPage = target.innerHTML;
+    getFilms(indexPage);
     if (target.innerHTML == 2) {
-        target.parentElement.setAttribute("class","page-item active");
-        target.parentElement.previousElementSibling.setAttribute("class", "page-item");
+        indexPageEls[0].innerHTML = 1;
+        indexPageEls[1].innerHTML = 2;
+        indexPageEls[2].innerHTML = 3;
+
+        indexPageEls[1].parentElement.setAttribute("class","page-item active");
+        indexPageEls[0].parentElement.setAttribute("class", "page-item");
+        indexPageEls[2].parentElement.setAttribute("class", "page-item");
         pagePrevEl.parentElement.setAttribute("class","page-item");
     }
     if (target.innerHTML == 1) {
@@ -36,16 +44,30 @@ function updatePage() {
         target.parentElement.nextElementSibling.setAttribute("class", "page-item");
         pagePrevEl.parentElement.setAttribute("class", "page-item disabled");
     }
-    
-    indexPage = target.innerHTML;
-    getFilms(indexPage);
+
+    if (target.getAttribute("class").split(" ")[2] == "third") {
+        indexPageEls[0].innerHTML = Number(target.innerHTML)-1;
+        indexPageEls[1].innerHTML = Number(target.innerHTML);
+        indexPageEls[2].innerHTML = Number(target.innerHTML)+1;
+        for (let i = 0; i < indexPageEls.length; i++) {
+            if (Number(indexPageEls[i].innerHTML) > maxPages) {
+                indexPageEls[i].setAttribute("hidden","");
+            } else {
+                indexPageEls[i].addEventListener("click", updatePage);
+            }
+        }
+        //target.parentElement.setAttribute("class","page-item active");
+        target.parentElement.previousElementSibling.setAttribute("class", "page-item active");
+        target.parentElement.previousElementSibling.previousElementSibling.setAttribute("class", "page-item");
+        pagePrevEl.parentElement.setAttribute("class","page-item");
+    }
+    window.scrollTo(0,0);
 }
 
 
 
 function getFilms(indexPage) {
-    //document.location = document.URL + "page=?" + indexPage;
-    
+    //document.URL = document.URL + "page=?" + indexPage;
     let url = "/page=?" + indexPage; 
     let data = new Array();
     let filmListReq = new XMLHttpRequest();
@@ -68,6 +90,18 @@ function getFilms(indexPage) {
 };
 getFilms(indexPage);
 
+
+//запрос жанров
+let listGenres = new XMLHttpRequest();
+listGenres.open("get", "/genres", true);
+listGenres.send();
+listGenres.onload = () => {
+    console.log(listGenres.response);
+    listPageGenres(JSON.parse(listGenres.response));
+};
+
+
+
 function listPage(dat) {
     var vm = new Vue({
         data: {
@@ -76,6 +110,16 @@ function listPage(dat) {
         render: h => h(films)            
     });
     vm.$mount('#films');
+}
+
+function listPageGenres(dat) {
+    var vm = new Vue({
+        data: {
+            arrayGenres: dat
+        },  
+        render: h => h(genres)
+    });
+    vm.$mount('#genres');
 }
 
 

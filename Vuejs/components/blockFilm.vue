@@ -22,14 +22,14 @@
 </template>
 
 <script>
-export default {
-    name: 'BlockFilm',
-    props: {
-        nameFilm1: String,
-        jenre1: String,
-        rating1: String,
-        yearOfMake1: String,
-        imgPoster1: String
+    export default {
+        name: 'BlockFilm',
+        props: {
+            nameFilm1: String,
+            jenre1: String,
+            rating1: String,
+            yearOfMake1: String,
+            imgPoster1: String
+        }
     }
-}
 </script>

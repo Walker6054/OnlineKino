@@ -45,30 +45,31 @@
                 <!-- Фильтры -->
                 <div class="col-md-auto filters mt-4">
                     <h6 class="text-left mt-4">ЖАНРЫ</h6>
-                    <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="f1" />
-                        <label class="form-check-label" for="f1">Боевик</label>
-                    </div>
-                    <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="f2" />
-                        <label class="form-check-label" for="f2">Комедия</label>
-                    </div>
-                    <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="f3" />
-                        <label class="form-check-label" for="f3">Ужасы</label>
-                    </div>
-                    <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="f4" />
-                        <label class="form-check-label" for="f4">Драма</label>
-                    </div>
-                    <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="f5" />
-                        <label class="form-check-label" for="f5">Детское</label>
-                    </div>
-                    <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="f6" />
-                        <label class="form-check-label" for="f6">Документальное</label>
-                    </div>
+                    <div id="genres"></div>
+                    <!--<div class="form-check filter ml-2 mb-1">
+                            <input class="form-check-input" type="checkbox" value="" id="f1" />
+                            <label class="form-check-label" for="f1">Боевик</label>
+                        </div>
+                        <div class="form-check filter ml-2 mb-1">
+                            <input class="form-check-input" type="checkbox" value="" id="f2" />
+                            <label class="form-check-label" for="f2">Комедия</label>
+                        </div>
+                        <div class="form-check filter ml-2 mb-1">
+                            <input class="form-check-input" type="checkbox" value="" id="f3" />
+                            <label class="form-check-label" for="f3">Ужасы</label>
+                        </div>
+                        <div class="form-check filter ml-2 mb-1">
+                            <input class="form-check-input" type="checkbox" value="" id="f4" />
+                            <label class="form-check-label" for="f4">Драма</label>
+                        </div>
+                        <div class="form-check filter ml-2 mb-1">
+                            <input class="form-check-input" type="checkbox" value="" id="f5" />
+                            <label class="form-check-label" for="f5">Детское</label>
+                        </div>
+                        <div class="form-check filter ml-2 mb-1">
+                            <input class="form-check-input" type="checkbox" value="" id="f6" />
+                            <label class="form-check-label" for="f6">Документальное</label>
+                        </div>-->
 
                     <h6 class="text-left mt-4">ГОД</h6>
                     <div class="form-check filter ml-2 mb-1">
@@ -128,7 +129,7 @@
                         <hr class="mt-0" width="100%" size="1" color="#6C6C6C" />
                     </div>
                     <!-- Фильмы -->
-                    <div class="row movies" id="films" name="1"></div>
+                    <div class="row movies" id="films"></div>
                     <!-- Тулбар -->
                     <div class="row movies row-cols-3">
                         <ul class="pagination">
@@ -136,13 +137,13 @@
                                 <button class="page-link prev" disabled>Предыдущая</button>
                             </li>
                             <li class="page-item active">
-                                <button class="page-link number">1</button>
+                                <button class="page-link number first">1</button>
                             </li>
                             <li class="page-item">
-                                <button class="page-link number">2</button>
+                                <button class="page-link number second">2</button>
                             </li>
                             <li class="page-item">
-                                <button class="page-link number">3</button>
+                                <button class="page-link number third">3</button>
                             </li>
                             <li class="page-item">
                                 <button class="page-link next">Следующая</button>

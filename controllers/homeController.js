@@ -31,6 +31,10 @@ exports.maxpage = function (request, response) {
 	response.send(url+'|'+maxPage);
 };
 
+exports.genres = function (request, response) {
+	response.send(arrGenres);
+};
+
 
 
 
@@ -51,6 +55,7 @@ connection.connect(function(err){
 });
 
 
+//получение фильмов
 var maxPage = 0;
 var films;
 connection.query("SELECT * FROM films order by rating desc",
@@ -61,7 +66,18 @@ connection.query("SELECT * FROM films order by rating desc",
             maxPage = Math.trunc(results.length / 9)+1;
         }
         films = results;
-        // console.log(maxPage);
-        // console.log(films);
+    }
+);
+
+//получение жанров
+var arrGenres = new Array();
+connection.query("SELECT * FROM genres order by idGenres",
+    function (err, results, fields) {
+        arrGenres = results;
+        // //console.log(arrGenres)
+        // let genresList = results;
+        // for (let i = 0; i < genresList.length; i++) {
+        //     arrGenres[i] = genresList[i].genre;
+        // }
     }
 );

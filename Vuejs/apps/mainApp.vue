@@ -1,5 +1,5 @@
 <template>
-  	<div class="row movies" id="films" name="1">
+  	<div class="row movies" id="films">
 		<BlockFilm v-for="value in arrayFilms" :key="value.id" :nameFilm1="value.nameFilm" :imgPoster1="value.imgPoster" :jenre1="value.jenre_1" :rating1="value.rating" :yearOfMake1="value.yearOfMake"/>
   	</div>
 </template>
