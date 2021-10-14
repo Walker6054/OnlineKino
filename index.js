@@ -3,12 +3,9 @@ const mysql = require("mysql2");
 
 const express = require("express");
 const app = express();
-const userRouter = require("./routes/usersRouter.js");
 const homeRouter = require("./routes/homeRouter.js");
  
-app.use("/users", userRouter);
 app.use("/", homeRouter);
- 
 
 //Обработка ошибок
 app.use((err, req, res, next) => {
@@ -16,7 +13,9 @@ app.use((err, req, res, next) => {
     console.log(req)
     console.log(res)
     res.status(404).send("Not Found")
-})
+});
+
+
  
 app.listen(3000);
 

@@ -1,5 +1,7 @@
+const connectDB = require("../models/home");
 const path = require('path');
 const pathDir = path.dirname(__dirname);
+
 
 exports.index = function (request, response) {
     //console.log(request);
@@ -36,29 +38,10 @@ exports.genres = function (request, response) {
 };
 
 
-
-
-const mysql = require("mysql2");
-//Подключение к БД
-const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "onlinekinonew",
-    password: "Walker.90"
-});
-connection.connect(function(err){
-    if (err) {
-        return console.error("Ошибка: " + err.message);
-    } else {
-        console.log("Подключение к серверу MySQL успешно установлено");
-    }
-});
-
-
 //получение фильмов
 var maxPage = 0;
 var films;
-connection.query("SELECT * FROM films order by rating desc",
+connectDB.query("SELECT * FROM films order by rating desc",
     function (err, results, fields) {
         if (results.length <= 9) {
             maxPage = 1;
@@ -71,7 +54,7 @@ connection.query("SELECT * FROM films order by rating desc",
 
 //получение жанров
 var arrGenres = new Array();
-connection.query("SELECT * FROM genres order by idGenres",
+connectDB.query("SELECT * FROM genres order by idGenres",
     function (err, results, fields) {
         arrGenres = results;
         // //console.log(arrGenres)
