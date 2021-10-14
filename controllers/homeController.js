@@ -4,14 +4,18 @@ const pathDir = path.dirname(__dirname);
 
 
 exports.index = function (request, response) {
-    //console.log(request);
     response.sendFile(pathDir + '/views/main.html');
 };
 exports.admin = function (request, response) {
     response.sendFile(pathDir + '/views/adminPanel.html');
 };
 
-exports.films = function (request, response) {
+exports.maxpage = function (request, response) {
+    let url = request.url;
+	response.send(url+'|'+maxPage);
+};
+
+exports.pageInfo = function (request, response) {
     let page = request.url.split('?')[1] - 1;
 
     let pageFilms = new Array();
@@ -25,17 +29,34 @@ exports.films = function (request, response) {
             pageFilms[i % 9] = films[i];
         }
     }
-	response.send(pageFilms);
+
+    let result = new Array();
+    result[0] = pageFilms;
+    result[1] = arrGenres;
+    console.log(result);
+	response.send(JSON.stringify(result));
 };
 
-exports.maxpage = function (request, response) {
-    let url = request.url;
-	response.send(url+'|'+maxPage);
-};
+// exports.films = function (request, response) {
+//     let page = request.url.split('?')[1] - 1;
 
-exports.genres = function (request, response) {
-	response.send(arrGenres);
-};
+//     let pageFilms = new Array();
+//     if (page > maxPage-1) {
+//         page = maxPage;
+//     }
+
+//     for (let i = 9 * page; i < 9 * page + 9; i++){
+//         if (films[i] != undefined) {
+
+//             pageFilms[i % 9] = films[i];
+//         }
+//     }
+// 	response.send(pageFilms);
+// };
+
+// exports.genres = function (request, response) {
+// 	response.send(arrGenres);
+// };
 
 
 //получение фильмов

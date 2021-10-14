@@ -6,11 +6,12 @@ homeRouter.get("/", homeController.index);
 
 homeRouter.get("/admin", homeController.admin);
 
-homeRouter.get("/page=?", homeController.films);
-
 homeRouter.get("/maxpage", homeController.maxpage);
 
-homeRouter.get("/genres", homeController.genres);
+homeRouter.get("/pageinfo=?", homeController.pageInfo);
+
+// homeRouter.get("/page=?", homeController.films);
+// homeRouter.get("/genres", homeController.genres);
  
 
 module.exports = homeRouter;
