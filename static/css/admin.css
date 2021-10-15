@@ -1,0 +1,26 @@
+.container {
+    margin-top: 2vw !important;
+}
+.row {
+}
+
+p {
+    margin: 0;
+}
+
+/*Блок навигации*/
+.colNav {
+    box-shadow: 0.2vw 0px 0px grey;
+}
+
+.rowNavHead {
+}
+.textNavHead {
+    text-align: center;
+    font-size: 3vw;
+    font-weight: 600;
+}
+
+/*Облий блок*/
+.colMain {
+}

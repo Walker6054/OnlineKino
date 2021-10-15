@@ -1,4 +1,4 @@
-const connectDB = require("../models/home");
+const connectDB = require("../models/connectDB");
 const path = require('path');
 const pathDir = path.dirname(__dirname);
 
@@ -37,27 +37,6 @@ exports.pageInfo = function (request, response) {
 	response.send(JSON.stringify(result));
 };
 
-// exports.films = function (request, response) {
-//     let page = request.url.split('?')[1] - 1;
-
-//     let pageFilms = new Array();
-//     if (page > maxPage-1) {
-//         page = maxPage;
-//     }
-
-//     for (let i = 9 * page; i < 9 * page + 9; i++){
-//         if (films[i] != undefined) {
-
-//             pageFilms[i % 9] = films[i];
-//         }
-//     }
-// 	response.send(pageFilms);
-// };
-
-// exports.genres = function (request, response) {
-// 	response.send(arrGenres);
-// };
-
 
 //получение фильмов
 var maxPage = 0;
@@ -78,10 +57,33 @@ var arrGenres = new Array();
 connectDB.query("SELECT * FROM genres order by idGenres",
     function (err, results, fields) {
         arrGenres = results;
-        // //console.log(arrGenres)
-        // let genresList = results;
-        // for (let i = 0; i < genresList.length; i++) {
-        //     arrGenres[i] = genresList[i].genre;
-        // }
     }
 );
+
+
+
+
+
+
+
+
+// exports.films = function (request, response) {
+//     let page = request.url.split('?')[1] - 1;
+
+//     let pageFilms = new Array();
+//     if (page > maxPage-1) {
+//         page = maxPage;
+//     }
+
+//     for (let i = 9 * page; i < 9 * page + 9; i++){
+//         if (films[i] != undefined) {
+
+//             pageFilms[i % 9] = films[i];
+//         }
+//     }
+// 	response.send(pageFilms);
+// };
+
+// exports.genres = function (request, response) {
+// 	response.send(arrGenres);
+// };
