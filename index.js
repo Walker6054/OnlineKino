@@ -1,5 +1,5 @@
 const path = require('path');
-const mysql = require("mysql2");
+//const mysql = require("mysql2");
 
 const express = require("express");
 const app = express();
@@ -11,10 +11,10 @@ app.use("/admin", adminRouter);
 
 //Обработка ошибок
 app.use((err, req, res, next) => {
-    console.log(err)
-    console.log(req)
-    console.log(res)
-    res.status(404).send("Not Found")
+    console.log(err);
+    console.log(req);
+    console.log(res);
+    res.status(404).send("Not Found");
 });
 
 

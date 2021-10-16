@@ -1,11 +1,25 @@
 const modelAdmin = require("../models/admin");
-const bodyParser = require("body-parser");
-//bodyPars.urlencoded({ extended: true });
-//bodyParser.urlencoded({ extended: true });
+const path = require('path');
+const pathDir = path.dirname(__dirname);
 
+exports.checkPassUser = function (request, response) {
+    let data = request.body;
+    console.log(data);
 
-exports.index = function (request, response) {
-    //console.log(bodyParser.text(request));
-    console.log(modelAdmin.getLogin());
-    response.send(modelAdmin.getLogin());
+    let arrayAdmins = modelAdmin.getPass();
+    console.log(arrayAdmins);
+
+    let flagLogin = false;
+    for (let i = 0; i < arrayAdmins.length; i++) {
+        if ((data.login == arrayAdmins[i][0].login)&&(data.password == arrayAdmins[i][0].password)) {
+            flagLogin = true;
+            break;
+        }
+    }
+
+    if (flagLogin) {
+        response.sendFile(pathDir + '/views/adminPanel.html');
+    } else {
+        response.status(404).send("Неверный пароль");
+    }
 };

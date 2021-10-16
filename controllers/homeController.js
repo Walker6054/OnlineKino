@@ -7,7 +7,7 @@ exports.index = function (request, response) {
     response.sendFile(pathDir + '/views/main.html');
 };
 exports.admin = function (request, response) {
-    response.sendFile(pathDir + '/views/adminPanel.html');
+    response.sendFile(pathDir + '/views/checkAdmin.html');
 };
 
 exports.maxpage = function (request, response) {

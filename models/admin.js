@@ -1,12 +1,24 @@
 const connectDB = require("../models/connectDB");
 
-let res = new Array();
+let resLog = new Array();
 async function getLoginAdmin() {
     try {
         connectDB.query("SELECT login FROM admins",
             function (err, results, fields) {
-                res[0] = results;
-                res[1] = fields;
+                resLog[0] = results;
+            }
+        )
+    } catch {
+        throw new Error("Ошибка!");
+    }
+}
+
+let resPass = new Array();
+async function getPassAdmin() {
+    try {
+        connectDB.query("SELECT * FROM admins",
+            function (err, results, fields) {
+                resPass[0] = results;
             }
         )
     } catch {
@@ -16,5 +28,10 @@ async function getLoginAdmin() {
 
 exports.getLogin = function () {
     getLoginAdmin();
-    return res;
+    return resLog;
+};
+
+exports.getPass = function () {
+    getPassAdmin();
+    return resPass;
 };
