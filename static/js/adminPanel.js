@@ -1,4 +1,5 @@
-
+let adminLogin = document.getElementsByClassName("loginAdmin")[0];
+adminLogin.innerHTML = localStorage.getItem("adminLogin");
 
 
 

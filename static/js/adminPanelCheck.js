@@ -1,3 +1,5 @@
+localStorage.removeItem("adminLogin");
+
 let buttonCommit = document.getElementById("submit");
 buttonCommit.addEventListener("click", submitForm);
 
@@ -23,7 +25,9 @@ function submitForm() {
                 if (req.status == "404") {
                     alert(req.responseText);
                 } else {
-                    document.body.innerHTML = req.response;
+                    alert("Вход совершен успешно!");
+                    localStorage.setItem("adminLogin", inputLogin.value);
+                    document.location = document.URL + req.responseText;
                 }
             }
     }

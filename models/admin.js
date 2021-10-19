@@ -1,37 +1,48 @@
 const connectDB = require("../models/connectDB");
 
-let resLog = new Array();
-async function getLoginAdmin() {
+function getPassAdmin() {
     try {
-        connectDB.query("SELECT login FROM admins",
+        connectDB.execute("SELECT * FROM admins",
             function (err, results, fields) {
-                resLog[0] = results;
+                getPass(results);
             }
         )
     } catch {
         throw new Error("Ошибка!");
     }
 }
-
-let resPass = new Array();
-async function getPassAdmin() {
-    try {
-        connectDB.query("SELECT * FROM admins",
-            function (err, results, fields) {
-                resPass[0] = results;
-            }
-        )
-    } catch {
-        throw new Error("Ошибка!");
-    }
+let resPass;
+function getPass(result) {
+    resPass = result;
 }
 
-exports.getLogin = function () {
-    getLoginAdmin();
-    return resLog;
-};
 
+exports.getPassAdmin = getPassAdmin;
 exports.getPass = function () {
-    getPassAdmin();
     return resPass;
 };
+
+
+
+
+
+
+// const sync = require("node-sync");
+
+// let resLog = new Array();
+// function getLoginAdmin() {
+//     try {
+//         connectDB.query("SELECT login FROM admins",
+//             function (err, results, fields) {
+//                 resLog[0] = results;
+//             }
+//         )
+//     } catch {
+//         throw new Error("Ошибка!");
+//     }
+// }
+
+// exports.getLogin = function () {
+//     getLoginAdmin();
+//     return resLog;
+// };

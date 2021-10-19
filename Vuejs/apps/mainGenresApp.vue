@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import BlockGenres from '../components/blockGenres.vue'
+    import BlockGenres from '../components/mainPage/blockGenres.vue'
 	export default {
   		name: 'genres',
   		components: {

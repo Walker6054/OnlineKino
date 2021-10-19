@@ -6,6 +6,7 @@ const parser = express.json();
 adminRouter.use(parser);
 
 adminRouter.post("/checkPass", parser, adminController.checkPassUser);
+adminRouter.get("/adminPanel", adminController.adminPanel);
  
 
 module.exports = adminRouter;

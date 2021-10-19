@@ -108,8 +108,8 @@
 </template>
 
 <script>
-    import BlockFilm from '../components/blockFilm.vue'
-    import BlockGenres from '../components/blockGenres.vue'
+    import BlockFilm from '../components/mainPage/blockFilm.vue'
+    import BlockGenres from '../components/mainPage/blockGenres.vue'
     import Header from '../components/header.vue'
     import Footer from '../components/footer.vue'
 	export default {
