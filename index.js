@@ -3,10 +3,8 @@ const path = require('path');
 const express = require("express");
 const app = express();
 const homeRouter = require("./routes/homeRouter.js");
-const adminRouter = require("./routes/adminRouter.js");
  
 app.use("/", homeRouter);
-app.use("/admin", adminRouter);
 
 //Обработка ошибок
 app.use((err, req, res, next) => {
