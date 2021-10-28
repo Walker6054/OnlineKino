@@ -15,30 +15,26 @@
                     </div>
 
                     <h6 class="text-left mt-4">ГОД</h6>
+                    <div class="form-check inputYear filter">
+                        <div class="input-group inputYear mb-3">
+                            <input type="text" class="form-control" id="inputYear1" placeholder="1990">
+                            <span class="input-group-text">-</span>
+                            <input type="text" class="form-control" id="inputYear2" placeholder="2021">
+                        </div>
+                    </div>
                     <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="y1" onchange="checkBoxFilters()" />
+                        <input class="form-check-input" type="checkbox" value="" id="y1"/>
                         <label class="form-check-label" for="y1">2021</label>
                     </div>
                     <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="y2" onchange="checkBoxFilters()" />
+                        <input class="form-check-input" type="checkbox" value="" id="y2"/>
                         <label class="form-check-label" for="y2">2020</label>
                     </div>
                     <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="y3" onchange="checkBoxFilters()" />
+                        <input class="form-check-input" type="checkbox" value="" id="y3" />
                         <label class="form-check-label" for="y3">2019</label>
                     </div>
-                    <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="y4" onchange="checkBoxFilters()" />
-                        <label class="form-check-label" for="y4">2018</label>
-                    </div>
-                    <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="y5" onchange="checkBoxFilters()" />
-                        <label class="form-check-label" for="y5">2017</label>
-                    </div>
-                    <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="y6" onchange="checkBoxFilters()" />
-                        <label class="form-check-label" for="y6">2016</label>
-                    </div>
+
 
                     <h6 class="text-left mt-4">РЕЙТИНГ</h6>
                     <div class="form-check filter ml-2 mb-1">
@@ -53,12 +49,15 @@
                         <input class="form-check-input" type="checkbox" value="" id="r3" />
                         <label class="form-check-label" for="r3">7+</label>
                     </div>
-
-                    <div class="text-center mt-5 mr-2">
-                        <p class="ad py-5 mb-5">Реклама</p>
-                        <p class="ad py-5 mb-5">Реклама</p>
-                        <p class="ad py-5 mb-5">Реклама</p>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="r4" />
+                        <label class="form-check-label" for="r4">6+</label>
                     </div>
+                    <div class="form-check filter ml-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="r5" />
+                        <label class="form-check-label" for="r5">5+</label>
+                    </div>
+
                 </div>
 
                 <div class="col-md films mx-4">
@@ -83,15 +82,11 @@
                             <li class="page-item disabled">
                                 <button class="page-link prev" disabled>Предыдущая</button>
                             </li>
-                            <li class="page-item active">
-                                <button class="page-link number first">1</button>
-                            </li>
+
                             <li class="page-item">
-                                <button class="page-link number second">2</button>
+                                <p class="">2</p>
                             </li>
-                            <li class="page-item">
-                                <button class="page-link number third">3</button>
-                            </li>
+
                             <li class="page-item">
                                 <button class="page-link next">Следующая</button>
                             </li>

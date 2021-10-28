@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import BlockFilm from '../components/mainPage/blockFilm.vue'
+    import BlockFilm from '../../Vuejs/components/mainPage/blockFilm.vue'
 	export default {
   		name: 'films',
   		components: {

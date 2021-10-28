@@ -22,43 +22,52 @@ exports.pageInfo = function (request, response) {
     if (page > maxPage-1) {
         page = maxPage;
     }
+    getFilms();
+    getGenres();
+    setTimeout(() => {
+        for (let i = 9 * page; i < 9 * page + 9; i++){
+            if (films[i] != undefined) {
 
-    for (let i = 9 * page; i < 9 * page + 9; i++){
-        if (films[i] != undefined) {
-
-            pageFilms[i % 9] = films[i];
+                pageFilms[i % 9] = films[i];
+            }
         }
-    }
 
-    let result = new Array();
-    result[0] = pageFilms;
-    result[1] = arrGenres;
-    console.log(result);
-	response.send(JSON.stringify(result));
+        let result = new Array();
+        result[0] = pageFilms;
+        result[1] = arrGenres;
+        console.log(result);
+        response.send(JSON.stringify(result));
+    }, 1000);
 };
 
 
 //получение фильмов
 var maxPage = 0;
 var films;
-connectDB.query("SELECT * FROM films order by rating desc",
-    function (err, results, fields) {
-        if (results.length <= 9) {
-            maxPage = 1;
-        } else {
-            maxPage = Math.trunc(results.length / 9)+1;
+function getFilms() {
+    connectDB.query("SELECT * FROM Films order by rating desc",
+        function (err, results, fields) {
+            if (results.length <= 9) {
+                maxPage = 1;
+            } else {
+                maxPage = Math.trunc(results.length / 9)+1;
+            }
+            films = results;
         }
-        films = results;
-    }
-);
+    );
+}
+
 
 //получение жанров
 var arrGenres = new Array();
-connectDB.query("SELECT * FROM genres order by idGenres",
-    function (err, results, fields) {
-        arrGenres = results;
-    }
-);
+function getGenres() {
+    connectDB.query("SELECT * FROM Genres order by idGenres",
+        function (err, results, fields) {
+            arrGenres = results;
+        }
+    );
+}
+
 
 
 

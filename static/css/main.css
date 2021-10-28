@@ -237,3 +237,11 @@ button {
     font-size: 18px;
     font-weight: 500;
 }
+
+.inputYear {
+    padding: 0;
+}
+#inputYear1,
+#inputYear2 {
+    width: 5vw;
+}
