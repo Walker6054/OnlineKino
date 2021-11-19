@@ -2,12 +2,6 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-md">
-                <!-- Соц.сети -->
-                <div class="btn-toolbar mx-auto d-block mt-2 mb-3">
-                    <a class="mx-1 mx-1" href=""><img src="" alt="instagram"/></a>
-                    <a class="mx-1" href=""><img src="" alt="tiktok"/></a>
-                    <a class="mx-1" href=""><img src="" alt="telegram"/></a>
-                </div>
                 <!-- Доп.страницы -->
                 <ul class="list-unstyled ftr-link">
                     <li><a href="faq.html">Помощь</a></li>

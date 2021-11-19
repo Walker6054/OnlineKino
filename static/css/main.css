@@ -244,4 +244,51 @@ button {
 #inputYear1,
 #inputYear2 {
     width: 5vw;
+    padding: 0;
+    padding-left: 0.5vw;
+}
+
+.pageOfFilm {
+    margin: 0;
+    font-size: inherit;
+    padding: 0.5rem 0.75rem;
+    font-weight: 500;
+    color: black;
+}
+
+.sort {
+    margin: 2vw 0;
+    font-size: 1.2vw;
+}
+.selectSort {
+    width: 12vw;
+    height: 4vw;
+}
+.buttonCommitFilter {
+    height: 5vw;
+    font-size: 1.5vw;
+    font-weight: 600;
+    white-space: normal;
+    width: 12vw;
+}
+
+.backToMain {
+    margin: 1vw;
+}
+.buttonbackToMain {
+    border-color: grey;
+    border-radius: 0.3vw;
+    font-size: 1.5vw;
+    font-weight: 500;
+}
+.textResult {
+    font-size: 2vw;
+    font-weight: 500;
+    margin: 0;
+    text-align: center;
+    color: black;
+}
+.colHeadFilter {
+    display: flex;
+    justify-content: center;
 }

@@ -4,10 +4,10 @@
             <Header/>
         </header>
 
-        <div class="container mt-4">
+        <div class="container">
             <div class="row">
                 <!-- Фильтры -->
-                <div class="col-md-auto filters mt-4">
+                <div class="col-md-auto filters">
                     <h6 class="text-left mt-4">ЖАНРЫ</h6>
 
                     <div id="genres">
@@ -17,60 +17,50 @@
                     <h6 class="text-left mt-4">ГОД</h6>
                     <div class="form-check inputYear filter">
                         <div class="input-group inputYear mb-3">
-                            <input type="text" class="form-control" id="inputYear1" placeholder="1990">
+                            <input type="number" class="form-control" id="inputYear1" min="1980" max="2020" placeholder="1980">
                             <span class="input-group-text">-</span>
-                            <input type="text" class="form-control" id="inputYear2" placeholder="2021">
+                            <input type="number" class="form-control" id="inputYear2" min="1981" max="2021" placeholder="2021">
                         </div>
                     </div>
-                    <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="y1"/>
-                        <label class="form-check-label" for="y1">2021</label>
-                    </div>
-                    <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="y2"/>
-                        <label class="form-check-label" for="y2">2020</label>
-                    </div>
-                    <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="y3" />
-                        <label class="form-check-label" for="y3">2019</label>
-                    </div>
-
 
                     <h6 class="text-left mt-4">РЕЙТИНГ</h6>
                     <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="r1" />
+                        <input class="form-check-input" type="radio" value="9" id="r1" name="rating" />
                         <label class="form-check-label" for="r1">9+</label>
                     </div>
                     <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="r2" />
+                        <input class="form-check-input" type="radio" value="8" id="r2" name="rating" />
                         <label class="form-check-label" for="r2">8+</label>
                     </div>
                     <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="r3" />
+                        <input class="form-check-input" type="radio" value="7" id="r3" name="rating" />
                         <label class="form-check-label" for="r3">7+</label>
                     </div>
                     <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="r4" />
+                        <input class="form-check-input" type="radio" value="6" id="r4" name="rating" />
                         <label class="form-check-label" for="r4">6+</label>
                     </div>
                     <div class="form-check filter ml-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="r5" />
+                        <input class="form-check-input" type="radio" value="5" id="r5" name="rating" />
                         <label class="form-check-label" for="r5">5+</label>
                     </div>
 
+                    <div class="sort">
+                        <select class="form-select selectSort">
+                            <option selected>Сортировать по:</option>
+                            <option value="1">Алфавиту</option>
+                            <option value="2">Году</option>
+                            <option value="3">Рейтингу</option>
+                        </select>
+                    </div>
+                    
+                    <button type="button" class="btn btn-outline-primary buttonCommitFilter">
+                        Использовать фильтры
+                    </button>
+
                 </div>
 
-                <div class="col-md films mx-4">
-                    <!-- Сортировка -->
-                    <div class="sort text-right mx-3">
-                        <a>
-                            <input type="button" value="BEST" />
-                            <img class="ml-1 mb-1" src="" alt="" />
-                        </a>
-                        <input type="button" value="POPULAR" />
-                        <hr class="mt-0" width="100%" size="1" color="#6C6C6C" />
-                    </div>
-
+                <div class="col-md films mx-4" id="blockFilms">
                     <!-- Фильмы -->
                     <div class="row movies" id="films">
                         <BlockFilm v-for="value in arrayFilms" :key="value.id" :nameFilm1="value.nameFilm" :imgPoster1="value.imgPoster" :jenre1="value.jenre_1" :rating1="value.rating" :yearOfMake1="value.yearOfMake"/>
@@ -79,12 +69,12 @@
                     <!-- Тулбар -->
                     <div class="row movies row-cols-3">
                         <ul class="pagination">
-                            <li class="page-item disabled">
+                            <li class="page-item">
                                 <button class="page-link prev" disabled>Предыдущая</button>
                             </li>
 
                             <li class="page-item">
-                                <p class="">2</p>
+                                <p class="pageOfFilm">{{indexOfPage}}</p>
                             </li>
 
                             <li class="page-item">
@@ -118,10 +108,9 @@
 		data() {
 			return {
 				arrayFilms: this.$root.$data.arrayFilms,
-                arrayGenres: this.$root.$data.arrayGenres
+                arrayGenres: this.$root.$data.arrayGenres,
+                indexOfPage: this.$root.$data.indexOfPage
 			}
 		}
 	}
-    //<BlockFilm v-for="value in arrayFilms" :key="value.id" :nameFilm1="value.nameFilm" :imgPoster1="value.imgPoster" :jenre1="value.jenre_1" :rating1="value.rating" :yearOfMake1="value.yearOfMake"/>
-    //<BlockGenres v-for="value in arrayGenres" :key="value.idGenres" :id1="value.idGenres" :nameGenre1="value.genre"/>
 </script>

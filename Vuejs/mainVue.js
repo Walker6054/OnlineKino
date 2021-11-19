@@ -1,9 +1,7 @@
 import Vue from 'vue';
 import mainPage from './apps/main.vue';
-// import films from './apps/mainApp.vue';
-// import genres from './apps/mainGenresApp.vue';
+import filterFilms from './apps/filterFilmsMain.vue';
 
-var indexPageEls;
 var pagePrevEl;
 var pageNextEl;
 
@@ -14,15 +12,6 @@ let maxPageReq = new XMLHttpRequest();
     maxPageReq.send();
     maxPageReq.onload = () => {
         maxPages = maxPageReq.responseText.split('|')[1];
-        // for (let i = 0; i < indexPageEls.length; i++) {
-        //     if (Number(indexPageEls[i].innerHTML) > maxPages) {
-        //         indexPageEls[i].setAttribute("hidden","");
-        //     } else {
-        //         indexPageEls[i].addEventListener("click", updatePage);
-        //     }
-        //     //indexPageEls[i].addEventListener("click", updatePage);
-        // }
-        console.log("ok MaxPage = " + maxPages);
     };
 
 
@@ -34,8 +23,6 @@ function getMain(indexPage) {
     mainPage.send();
     mainPage.onload = () => {
         data = JSON.parse(mainPage.response);
-        console.log("data");
-        console.log(data);
         listMain(data);
     }
 }
@@ -45,63 +32,146 @@ function listMain(dat) {
     var vm = new Vue({
         data: {
             arrayFilms: dat[0],
-            arrayGenres: dat[1]
+            arrayGenres: dat[1],
+            indexOfPage: indexPage
         },  
         render: h => h(mainPage)            
     });
     vm.$mount('#body');
 
-    indexPageEls = document.getElementsByClassName("number");
     pagePrevEl = document.getElementsByClassName("prev")[0];
     pageNextEl = document.getElementsByClassName("next")[0];
-    for (let i = 0; i < indexPageEls.length; i++) {
-        if (Number(indexPageEls[i].innerHTML) > maxPages) {
-            indexPageEls[i].setAttribute("hidden","");
+
+    if (indexPage == 1) {
+        pagePrevEl.setAttribute("disabled", "");
+        pageNextEl.removeAttribute("disabled");
+    } else {
+        if (indexPage < maxPages) {
+            pagePrevEl.removeAttribute("disabled");
+            pageNextEl.removeAttribute("disabled");
         } else {
-            indexPageEls[i].addEventListener("click", updatePage);
+            if (indexPage >= maxPages) {
+                pagePrevEl.removeAttribute("disabled");
+                pageNextEl.setAttribute("disabled", "");
+            }
         }
     }
+
+    pageNextEl.addEventListener("click", updatePage);
+    pagePrevEl.addEventListener("click", updatePage);
+
+    document.getElementsByClassName("buttonCommitFilter")[0].addEventListener("click", sendFilters);
 }
 
 
 function updatePage() {
     let target = event.target;
-    console.log(target);
-    indexPage = target.innerHTML;
+
+    pagePrevEl = document.getElementsByClassName("prev")[0];
+    pageNextEl = document.getElementsByClassName("next")[0];
+    pagePrevEl.setAttribute("disabled", "");
+    pageNextEl.setAttribute("disabled", "");
+
+    if (target.getAttribute("class") == "page-link next") {
+        indexPage++;
+    } else {
+        indexPage--;
+    }
     getMain(indexPage);
-    if (target.innerHTML == 2) {
-        indexPageEls[0].innerHTML = 1;
-        indexPageEls[1].innerHTML = 2;
-        indexPageEls[2].innerHTML = 3;
+    setTimeout(
+        () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 300
+    );
+}
 
-        indexPageEls[1].parentElement.setAttribute("class","page-item active");
-        indexPageEls[0].parentElement.setAttribute("class", "page-item");
-        indexPageEls[2].parentElement.setAttribute("class", "page-item");
-        pagePrevEl.parentElement.setAttribute("class","page-item");
-    }
-    if (target.innerHTML == 1) {
-        target.parentElement.setAttribute("class", "page-item active");
-        target.parentElement.nextElementSibling.setAttribute("class", "page-item");
-        pagePrevEl.parentElement.setAttribute("class", "page-item disabled");
-    }
 
-    if (target.getAttribute("class").split(" ")[2] == "third") {
-        indexPageEls[0].innerHTML = Number(target.innerHTML)-1;
-        indexPageEls[1].innerHTML = Number(target.innerHTML);
-        indexPageEls[2].innerHTML = Number(target.innerHTML)+1;
-        for (let i = 0; i < indexPageEls.length; i++) {
-            if (Number(indexPageEls[i].innerHTML) > maxPages) {
-                indexPageEls[i].setAttribute("hidden","");
-            } else {
-                indexPageEls[i].addEventListener("click", updatePage);
+function sendFilters() {
+    let checkedGenres = document.getElementsByClassName("genresInput");
+    let listCheckedGenres = new Array();
+    let index = 0;
+    for (let i = 0; i < checkedGenres.length; i++) {
+        if (checkedGenres[i].checked) {
+            listCheckedGenres[index] = checkedGenres[i].getAttribute("id").split("f")[1];
+            index++;
+        }
+    };
+
+    let year1 = document.getElementById("inputYear1").value;
+    let year2 = document.getElementById("inputYear2").value;
+    if ((year1 == "") && (year2 == "")) {
+        year1 = 1980;
+        year2 = 2021;
+    } else {
+        if ((year1 != "") && (year2 == "")) {
+            year2 = 2021;
+        } else {
+            if ((year1 == "") && (year2 != "")) {
+                year1 = 1980;
             }
         }
-        //target.parentElement.setAttribute("class","page-item active");
-        target.parentElement.previousElementSibling.setAttribute("class", "page-item active");
-        target.parentElement.previousElementSibling.previousElementSibling.setAttribute("class", "page-item");
-        pagePrevEl.parentElement.setAttribute("class","page-item");
     }
-    window.scrollTo(0,0);
+
+    let ratingsButtons = document.getElementsByName("rating");
+    let valueRating = -1;
+    for (let i = 0; i < ratingsButtons.length; i++) {
+        if (ratingsButtons[i].checked) {
+            valueRating = ratingsButtons[i].value;
+            break;
+        }
+    }
+
+    let sortSelect = document.getElementsByClassName("selectSort")[0].value;
+    if (sortSelect == "Сортировать по:") { sortSelect = -1; }
+
+    let filterData = {
+        genresArr: listCheckedGenres,
+        year1: year1,
+        year2: year2,
+        rating: valueRating,
+        sort: sortSelect
+    };
+
+    console.log(filterData);
+
+    let url = "/getSort";
+    //let data = new Array();
+    let sortArrayReq = new XMLHttpRequest();
+    sortArrayReq.open("post", url, true);
+    sortArrayReq.setRequestHeader(
+            'Content-Type',
+            'application/json'
+        )
+    sortArrayReq.send(JSON.stringify(filterData));
+    sortArrayReq.onload = () => {
+        console.log("data");
+        console.log(sortArrayReq.response);
+        console.log(sortArrayReq.status);
+
+        let data = JSON.parse(sortArrayReq.response);
+
+        let flagResponce;
+        if (data.length != 0) {
+            flagResponce = true;
+        } else {
+            flagResponce = false;
+        }
+
+        if ((sortArrayReq.status == 200)&&(document.getElementsByClassName("pagination")[0])) {
+            document.getElementsByClassName("pagination")[0].setAttribute("hidden", "");
+        }
+
+        //console.log(flagResponce); 
+
+        var vm = new Vue({
+            data: {
+                arrayFilms: data,
+                flagSearching: flagResponce
+            },  
+            render: h => h(filterFilms)            
+        });
+        vm.$mount('#blockFilms');
+    }
 }
 
 
@@ -160,15 +230,3 @@ function updatePage() {
 //     });
 //     vm.$mount('#genres');
 // }
-
-
-
-
-
-
-
-
-
-// const Vue = require('vue');
-// const films = require('./apps/mainApp.vue');
-//import * as films from './apps/mainApp.vue'
