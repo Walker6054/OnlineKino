@@ -16,7 +16,7 @@
                     <p class="mb-0 mx-2 px-0">{{yearOfMake1}}</p>
                 </div>
             </div>
-            <a href="" :id="id1" class="btn btn-outline-dark btn-block btn-film">Смотреть</a>
+            <a :id="id1" class="btn btn-outline-dark btn-block btn-film buttonGotoFilm">Смотреть</a>
         </div>
     </div>
 </template>

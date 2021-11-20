@@ -11,6 +11,8 @@ homeRouter.get("/maxpage", homeController.maxpage);
 
 homeRouter.get("/pageinfo=?", homeController.pageInfo);
 
+homeRouter.get("/filminfo=?", homeController.filminfo);
+
 homeRouter.post("/getSearchResult", parser, homeController.getSearchResult);
 
 homeRouter.post("/getSort", parser, homeController.getSort);

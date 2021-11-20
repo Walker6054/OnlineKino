@@ -22,6 +22,7 @@ exports.pageInfo = function (request, response) {
     getFilms();
     getGenres();
     getGenresFilms();
+    getCountryFilms();
     setTimeout(() => {
         for (let i = 9 * page; i < 9 * page + 9; i++){
             if (films[i] != undefined) {
@@ -88,6 +89,15 @@ function getGenresFilms() {
     connectDB.query("SELECT * FROM GenresFilms",
         function (err, results, fields) {
             arrGenresFilms = results;
+        }
+    );
+}
+//получение стран фильмов
+var arrCountryFilms = new Array();
+function getCountryFilms() {
+    connectDB.query("SELECT * FROM CountryFilms",
+        function (err, results, fields) {
+            arrCountryFilms = results;
         }
     );
 }
@@ -218,4 +228,58 @@ exports.getSearchResult = function (request, response) {
         );
     }
     
+};
+
+
+
+exports.filminfo = function (request, response) {
+    let id = request.url.split('?')[1];
+    connectDB.query("SELECT * FROM Films where idfilms = " + id,
+        function (err, results, fields) {
+            
+            console.log(results);
+
+            if ((results == undefined)||(results.length == 0)) {
+                response.status(800).send("Not found!");
+            } else {
+                let stringGenresFilm = "";
+                for (let j = 0; j < arrGenresFilms.length; j++){
+                    if (results[0].idfilms == arrGenresFilms[j].idFilm) {
+                        if (stringGenresFilm == "") {
+                            stringGenresFilm += arrGenresFilms[j].genre;
+                        } else {
+                            stringGenresFilm += ', ' + arrGenresFilms[j].genre;
+                        }
+                    }
+                }
+                let stringCountryFilm = "";
+                for (let j = 0; j < arrCountryFilms.length; j++){
+                    if (results[0].idfilms == arrCountryFilms[j].idFilm) {
+                        if (stringCountryFilm == "") {
+                            stringCountryFilm += arrCountryFilms[j].country;
+                        } else {
+                            stringCountryFilm += ', ' + arrCountryFilms[j].country;
+                        }
+                    }
+                }
+
+                let arrayFilm = {
+                    age: results[0].age,
+                    idfilms: results[0].idfilms,
+                    imgPoster: results[0].imgPoster,
+                    nameFilm: results[0].nameFilm,
+                    rating: results[0].rating,
+                    ratingFrom: results[0].ratingFrom,
+                    time: results[0].time,
+                    yearOfMake: results[0].yearOfMake,
+                    genres: stringGenresFilm,
+                    countrys: stringCountryFilm,
+                    urlTrailer: results[0].urlTrailer,
+                    description: results[0].description,
+                    slogan: results[0].slogan
+                };
+                response.send(JSON.stringify(arrayFilm));
+            }
+        }
+    );
 };

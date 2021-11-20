@@ -10,3 +10,24 @@
     border-bottom-left-radius: 0;
     background-color: azure;
 }
+
+body {
+    font-family: "Roboto", sans-serif;
+}
+.footer {
+    background-color: #06163e;
+    margin-top: 2vw;
+}
+
+.navbar-custom {
+    background-color: #06163e;
+}
+
+.navbar-brand {
+    font-size: 20pt;
+    font-weight: 700;
+}
+
+.navbar-brand.logo:hover {
+    color: #7e7b7b;
+}

@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import mainPage from './apps/main.vue';
 import filterFilms from './apps/filterFilmsMain.vue';
+import filmPage from './apps/film.vue';
 
-var pagePrevEl;
-var pageNextEl;
+let pagePrevEl;
+let pageNextEl;
+let indexPage = 1;
+let maxPages;
 
-var indexPage = 1;
-var maxPages;
+//запрос на максимальное количество страниц
 let maxPageReq = new XMLHttpRequest();
     maxPageReq.open("get", "/maxpage", true);
     maxPageReq.send();
@@ -14,7 +16,7 @@ let maxPageReq = new XMLHttpRequest();
         maxPages = maxPageReq.responseText.split('|')[1];
     };
 
-
+//запрос на текущую страницу и вызов отрисовки
 function getMain(indexPage) {
     let url = "/pageinfo=?" + indexPage;
     let data = new Array();
@@ -28,6 +30,7 @@ function getMain(indexPage) {
 }
 getMain(indexPage);
 
+//Отрисовка главной страницы
 function listMain(dat) {
     var vm = new Vue({
         data: {
@@ -62,9 +65,14 @@ function listMain(dat) {
 
     document.getElementsByClassName("buttonCommitFilter")[0].addEventListener("click", sendFilters);
     document.getElementById("buttonSearch").addEventListener("click", searchFilm);
+
+    let buttonsGotoFilm = document.getElementsByClassName("buttonGotoFilm");
+    for (let i = 0; i < buttonsGotoFilm.length; i++){
+        buttonsGotoFilm[i].addEventListener("click", getInformationFilm);
+    }
 }
 
-
+//Обновление страницы при перелистывании страниц
 function updatePage() {
     let target = event.target;
 
@@ -87,6 +95,7 @@ function updatePage() {
 }
 
 
+//---------------------СОРТИРОВКА---------------------------------------------------------------
 function sendFilters() {
     let checkedGenres = document.getElementsByClassName("genresInput");
     let listCheckedGenres = new Array();
@@ -167,13 +176,17 @@ function sendFilters() {
 
             let buttonBackMain = document.getElementsByClassName('buttonbackToMain')[0];
             buttonBackMain.addEventListener("click", () => { window.location.reload() });
+            let buttonsGotoFilm = document.getElementsByClassName("buttonGotoFilm");
+            for (let i = 0; i < buttonsGotoFilm.length; i++){
+                buttonsGotoFilm[i].addEventListener("click", getInformationFilm);
+            }
         } else {
             alert("Произошла ошибка, введите фильтры пожалуйста!");
         }
     }
 }
 
-
+//---------------------ПОИСК---------------------------------------------------------------
 function searchFilm() {
     let inputNameFilm = document.getElementById("inputSearch");
 
@@ -208,8 +221,42 @@ function searchFilm() {
 
             let buttonBackMain = document.getElementsByClassName('buttonbackToMain')[0];
             buttonBackMain.addEventListener("click", () => { window.location.reload() });
+
+            let buttonsGotoFilm = document.getElementsByClassName("buttonGotoFilm");
+            for (let i = 0; i < buttonsGotoFilm.length; i++){
+                buttonsGotoFilm[i].addEventListener("click", getInformationFilm);
+            }
         } else {
             alert("Скажем НЕТ sql-инъекциям!");
         }
     }
+}
+
+
+
+
+
+//---------------------СТРАНИЦА ФИЛЬМА---------------------------------------------------------------
+function getInformationFilm() {
+    let targetID = event.target.getAttribute("id");
+
+    let url = "/filminfo=?"+targetID;
+    let filmReq = new XMLHttpRequest();
+    filmReq.open("get", url, true);
+    filmReq.send();
+    filmReq.onload = () => {
+        if (filmReq.status != 800) {
+            console.log(filmReq.response);
+            console.log(JSON.parse(filmReq.response));
+            var vm = new Vue({
+                data: {
+                    arrayFilm: JSON.parse(filmReq.response)
+                },  
+                render: h => h(filmPage)            
+            });
+            vm.$mount('#body');
+        } else {
+            alert("Произошла ошибка, фильм не найден!");
+        }
+    } 
 }

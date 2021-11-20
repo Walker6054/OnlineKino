@@ -1,0 +1,72 @@
+.rowMain {
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+}
+
+.colPoster {
+}
+.imgPoster {
+    width: inherit;
+    height: 45vw;
+}
+
+.colDescription {
+}
+.rowNameFilm {
+}
+.textNameFilm {
+    font-size: 3.5vw;
+    font-weight: 700;
+}
+
+.rowSlogan {
+    margin-bottom: 1.5vw;
+}
+.textSlogan {
+    font-size: 1.5vw;
+    font-weight: 400;
+}
+
+.rowInfo {
+}
+.colHeadInfo {
+}
+.textHeadInfo {
+    font-size: 2vw;
+    font-weight: 500;
+}
+.colInfo {
+}
+.textInfo {
+    font-size: 1.8vw;
+    font-weight: 400;
+}
+
+.rowTrailerHead {
+}
+.rowTrailer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1vw;
+}
+.textHeadTrailer {
+    font-size: 2vw;
+    font-weight: 500;
+}
+#trailer {
+    width: 80vw;
+    height: 45vw;
+}
+
+.rowDescriptionFilm {
+}
+.textHeadDescription {
+    font-size: 2vw;
+    font-weight: 500;
+}
+.textDescription {
+    font-size: 2vw;
+    font-weight: 300;
+    color: black;
+    text-align: justify;
+}
