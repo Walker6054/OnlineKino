@@ -11,10 +11,9 @@ homeRouter.get("/maxpage", homeController.maxpage);
 
 homeRouter.get("/pageinfo=?", homeController.pageInfo);
 
-homeRouter.post("/getSort", parser, homeController.getSort);
+homeRouter.post("/getSearchResult", parser, homeController.getSearchResult);
 
-// homeRouter.get("/page=?", homeController.films);
-// homeRouter.get("/genres", homeController.genres);
+homeRouter.post("/getSort", parser, homeController.getSort);
  
 
 module.exports = homeRouter;

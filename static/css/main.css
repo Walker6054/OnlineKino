@@ -8,6 +8,10 @@
 body {
     font-family: "Roboto", sans-serif;
 }
+.footer {
+    background-color: #06163e;
+    margin-top: 2vw;
+}
 
 .navbar-custom {
     background-color: #06163e;
@@ -114,10 +118,6 @@ button {
 .btn-tool:hover {
     color: #fff;
     background-color: #061f5e;
-}
-
-.footer {
-    background-color: #06163e;
 }
 
 .ftr-link {

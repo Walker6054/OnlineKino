@@ -63,7 +63,7 @@
                 <div class="col-md films mx-4" id="blockFilms">
                     <!-- Фильмы -->
                     <div class="row movies" id="films">
-                        <BlockFilm v-for="value in arrayFilms" :key="value.id" :nameFilm1="value.nameFilm" :imgPoster1="value.imgPoster" :jenre1="value.jenre_1" :rating1="value.rating" :yearOfMake1="value.yearOfMake"/>
+                        <BlockFilm v-for="value in arrayFilms" :key="value.id" :id1="value.idfilms" :nameFilm1="value.nameFilm" :imgPoster1="value.imgPoster" :genres1="value.genres" :rating1="value.rating" :yearOfMake1="value.yearOfMake"/>
                     </div>
 
                     <!-- Тулбар -->

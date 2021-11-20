@@ -61,6 +61,7 @@ function listMain(dat) {
     pagePrevEl.addEventListener("click", updatePage);
 
     document.getElementsByClassName("buttonCommitFilter")[0].addEventListener("click", sendFilters);
+    document.getElementById("buttonSearch").addEventListener("click", searchFilm);
 }
 
 
@@ -132,10 +133,7 @@ function sendFilters() {
         sort: sortSelect
     };
 
-    console.log(filterData);
-
     let url = "/getSort";
-    //let data = new Array();
     let sortArrayReq = new XMLHttpRequest();
     sortArrayReq.open("post", url, true);
     sortArrayReq.setRequestHeader(
@@ -144,89 +142,74 @@ function sendFilters() {
         )
     sortArrayReq.send(JSON.stringify(filterData));
     sortArrayReq.onload = () => {
-        console.log("data");
-        console.log(sortArrayReq.response);
-        console.log(sortArrayReq.status);
+        if (sortArrayReq.status != 800) {
+            let data = JSON.parse(sortArrayReq.response);
 
-        let data = JSON.parse(sortArrayReq.response);
+            let flagResponce;
+            if (data.length != 0) {
+                flagResponce = true;
+            } else {
+                flagResponce = false;
+            }
 
-        let flagResponce;
-        if (data.length != 0) {
-            flagResponce = true;
+            if ((sortArrayReq.status == 200)&&(document.getElementsByClassName("pagination")[0])) {
+                document.getElementsByClassName("pagination")[0].setAttribute("hidden", "");
+            }
+
+            var vm = new Vue({
+                data: {
+                    arrayFilms: data,
+                    flagSearching: flagResponce
+                },  
+                render: h => h(filterFilms)            
+            });
+            vm.$mount('#blockFilms');
+
+            let buttonBackMain = document.getElementsByClassName('buttonbackToMain')[0];
+            buttonBackMain.addEventListener("click", () => { window.location.reload() });
         } else {
-            flagResponce = false;
+            alert("Произошла ошибка, введите фильтры пожалуйста!");
         }
-
-        if ((sortArrayReq.status == 200)&&(document.getElementsByClassName("pagination")[0])) {
-            document.getElementsByClassName("pagination")[0].setAttribute("hidden", "");
-        }
-
-        //console.log(flagResponce); 
-
-        var vm = new Vue({
-            data: {
-                arrayFilms: data,
-                flagSearching: flagResponce
-            },  
-            render: h => h(filterFilms)            
-        });
-        vm.$mount('#blockFilms');
     }
 }
 
 
+function searchFilm() {
+    let inputNameFilm = document.getElementById("inputSearch");
 
+    let url = "/getSearchResult";
+    let searchReq = new XMLHttpRequest();
+    let data = {value: inputNameFilm.value};
+    searchReq.open("post", url, true);
+    searchReq.setRequestHeader(
+            'Content-Type',
+            'application/json'
+        )
+    searchReq.send(JSON.stringify(data));
+    searchReq.onload = () => {
+        if (searchReq.status != 800) {
+            let data = JSON.parse(searchReq.response);
 
+            let flagResponce;
+            if (data.length != 0) {
+                flagResponce = true;
+            } else {
+                flagResponce = false;
+            }
 
+            var vm = new Vue({
+                data: {
+                    arrayFilms: data,
+                    flagSearching: flagResponce
+                },  
+                render: h => h(filterFilms)            
+            });
+            vm.$mount('#blockFilms');
 
-// function getFilms(indexPage) { 
-//     let url = "/page=?" + indexPage; 
-//     let data = new Array();
-//     let filmListReq = new XMLHttpRequest();
-//     filmListReq.open("get", url, true);
-//     filmListReq.send();
-//     filmListReq.onload = () => {
-//         data = JSON.parse(filmListReq.responseText);
-//         // for (let i = 0; i < data.length; i++) {
-//         //     let jenresString = data[i].jenre_1;
-//         //     if (data[i].jenre_2 != null) {
-//         //         jenresString += ', ' + data[i].jenre_2;
-//         //     }
-//         //     if (data[i].jenre_3 != null) {
-//         //         jenresString += ', ' + data[i].jenre_3;
-//         //     }
-//         //     data[i].jenre_1 = jenresString
-//         // }
-//         listPage(data);
-//     };
-// };
-// getFilms(indexPage);
-
-// function listPage(dat) {
-//     var vm = new Vue({
-//         data: {
-//             arrayFilms: dat
-//         },  
-//         render: h => h(films)            
-//     });
-//     vm.$mount('#films');
-// }
-
-// //запрос жанров
-// let listGenres = new XMLHttpRequest();
-// listGenres.open("get", "/genres", true);
-// listGenres.send();
-// listGenres.onload = () => {
-//     console.log(listGenres.response);
-//     listPageGenres(JSON.parse(listGenres.response));
-// };
-
-// function listPageGenres(dat) {
-//     var vm = new Vue({
-//         data: {
-//             arrayGenres: dat
-//         },  
-//         render: h => h(genres)
-//     });
-//     vm.$mount('#genres');
-// }
+            let buttonBackMain = document.getElementsByClassName('buttonbackToMain')[0];
+            buttonBackMain.addEventListener("click", () => { window.location.reload() });
+        } else {
+            alert("Скажем НЕТ sql-инъекциям!");
+        }
+    }
+}

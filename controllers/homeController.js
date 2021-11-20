@@ -21,17 +21,40 @@ exports.pageInfo = function (request, response) {
     }
     getFilms();
     getGenres();
+    getGenresFilms();
     setTimeout(() => {
         for (let i = 9 * page; i < 9 * page + 9; i++){
             if (films[i] != undefined) {
-                pageFilms[i % 9] = films[i];
+                
+                let stringGenresFilms = "";
+                for (let j = 0; j < arrGenresFilms.length; j++){
+                    if (films[i].idfilms == arrGenresFilms[j].idFilm) {
+                        if (stringGenresFilms == "") {
+                            stringGenresFilms += arrGenresFilms[j].genre;
+                        } else {
+                            stringGenresFilms += ', ' + arrGenresFilms[j].genre;
+                        }
+                    }
+                }
+
+                pageFilms[i % 9] = {
+                    age: films[i].age,
+                    idfilms: films[i].idfilms,
+                    imgPoster: films[i].imgPoster,
+                    nameFilm: films[i].nameFilm,
+                    rating: films[i].rating,
+                    ratingFrom: films[i].ratingFrom,
+                    time: films[i].time,
+                    yearOfMake: films[i].yearOfMake,
+                    genres: stringGenresFilms
+                };
             }
         }
 
         let result = new Array();
         result[0] = pageFilms;
         result[1] = arrGenres;
-        //console.log(result);
+        // console.log(result);
         response.send(JSON.stringify(result));
     }, 1000);
 };
@@ -59,13 +82,22 @@ function getGenres() {
         }
     );
 }
+//получение жанров фильмов
+var arrGenresFilms = new Array();
+function getGenresFilms() {
+    connectDB.query("SELECT * FROM GenresFilms",
+        function (err, results, fields) {
+            arrGenresFilms = results;
+        }
+    );
+}
 
 
+//реализация сортировки
 exports.getSort = function (request, response) {
-    console.log(request.body);
     let data = request.body;
 
-    if ((data.genresArr.length == 0) && (data.rating == -1) && (data.sort == -1) && (data.year1 == -1) && (data.year2 == -1)) {
+    if ((data.genresArr.length == 0) && (data.rating == -1) && (data.sort == -1) && (data.year1 == 1980) && (data.year2 == 2021)) {
         response.status(800).send("giveFilters");
     } else {
         let sortField;
@@ -94,7 +126,6 @@ exports.getSort = function (request, response) {
                 }
             }
         }
-        console.log(stringGenres);
 
         connectDB.query(`
             SELECT DISTINCT F.* FROM Films F `+ stringTablesGenres +` where
@@ -105,42 +136,86 @@ exports.getSort = function (request, response) {
                 order by `+ sortField + ' ' + sortVar ,
 
             function (err, results, fields) {
-                console.log(results);
-                response.send(JSON.stringify(results));
+                let arrayFilmsWithGenres = new Array();
+                for (let i = 0; i < results.length; i++){
+                    let stringGenresFilms = "";
+                    for (let j = 0; j < arrGenresFilms.length; j++){
+                        if (results[i].idfilms == arrGenresFilms[j].idFilm) {
+                            if (stringGenresFilms == "") {
+                                stringGenresFilms += arrGenresFilms[j].genre;
+                            } else {
+                                stringGenresFilms += ', ' + arrGenresFilms[j].genre;
+                            }
+                        }
+                    }
+
+                    arrayFilmsWithGenres[i] = {
+                        age: results[i].age,
+                        idfilms: results[i].idfilms,
+                        imgPoster: results[i].imgPoster,
+                        nameFilm: results[i].nameFilm,
+                        rating: results[i].rating,
+                        ratingFrom: results[i].ratingFrom,
+                        time: results[i].time,
+                        yearOfMake: results[i].yearOfMake,
+                        genres: stringGenresFilms
+                    };
+                }
+                response.send(JSON.stringify(arrayFilmsWithGenres));
             }
         );
     }
 };
 
 
+exports.getSearchResult = function (request, response) {
+    let data = request.body.value;
+    let checkSQL = data.toLowerCase();
+    if (checkSQL.includes("select") ||
+        checkSQL.includes("where") ||
+        checkSQL.includes("from") ||
+        checkSQL.includes("insert") ||
+        checkSQL.includes("delete") ||
+        checkSQL.includes("order") ||
+        checkSQL.includes("group") ||
+        checkSQL.includes("union") ||
+        checkSQL.includes("cast") ||
+        checkSQL.includes("having") ||
+        checkSQL.includes("like") ||
+        checkSQL.includes("distinct")
+    ) {
+        response.status(800).send("STOP!");
+    } else {
+        connectDB.query("SELECT DISTINCT * FROM Films where nameFilm like '%" + data + "%' order by rating",
+            function (err, results, fields) {
+                let arrayFilmsSearch = new Array();
+                for (let i = 0; i < results.length; i++){
+                    let stringGenresFilms = "";
+                    for (let j = 0; j < arrGenresFilms.length; j++){
+                        if (results[i].idfilms == arrGenresFilms[j].idFilm) {
+                            if (stringGenresFilms == "") {
+                                stringGenresFilms += arrGenresFilms[j].genre;
+                            } else {
+                                stringGenresFilms += ', ' + arrGenresFilms[j].genre;
+                            }
+                        }
+                    }
 
-
-
-
-
-
-
-
-
-
-
-// exports.films = function (request, response) {
-//     let page = request.url.split('?')[1] - 1;
-
-//     let pageFilms = new Array();
-//     if (page > maxPage-1) {
-//         page = maxPage;
-//     }
-
-//     for (let i = 9 * page; i < 9 * page + 9; i++){
-//         if (films[i] != undefined) {
-
-//             pageFilms[i % 9] = films[i];
-//         }
-//     }
-// 	response.send(pageFilms);
-// };
-
-// exports.genres = function (request, response) {
-// 	response.send(arrGenres);
-// };
+                    arrayFilmsSearch[i] = {
+                        age: results[i].age,
+                        idfilms: results[i].idfilms,
+                        imgPoster: results[i].imgPoster,
+                        nameFilm: results[i].nameFilm,
+                        rating: results[i].rating,
+                        ratingFrom: results[i].ratingFrom,
+                        time: results[i].time,
+                        yearOfMake: results[i].yearOfMake,
+                        genres: stringGenresFilms
+                    };
+                }
+                response.send(JSON.stringify(arrayFilmsSearch));
+            }
+        );
+    }
+    
+};

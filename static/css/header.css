@@ -1,0 +1,12 @@
+.blockSearch {
+    margin: 0 2vw;
+}
+
+#inputSearch {
+}
+
+#buttonSearch {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: azure;
+}
